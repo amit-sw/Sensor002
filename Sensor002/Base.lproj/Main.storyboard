@@ -66,7 +66,7 @@
                             <constraint firstItem="pIV-aC-lvM" firstAttribute="trailing" secondItem="HX6-rs-rO1" secondAttribute="trailing" id="yPG-Me-vKZ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Sensor" image="realtimetext" catalog="system" id="wiG-uw-BCI"/>
+                    <tabBarItem key="tabBarItem" title="Sensor" image="teletype.answer" catalog="system" id="wiG-uw-BCI"/>
                     <connections>
                         <outlet property="lowerLabel" destination="YaX-0v-Etd" id="7e2-k8-REz"/>
                         <outlet property="mainText" destination="5ds-am-7rO" id="rPR-oK-LjC"/>
@@ -115,6 +115,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="PSv-jY-022" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oH8-Zq-MHY">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -132,7 +133,7 @@
     </scenes>
     <resources>
         <image name="location.fill" catalog="system" width="128" height="121"/>
-        <image name="realtimetext" catalog="system" width="128" height="89"/>
+        <image name="teletype.answer" catalog="system" width="128" height="89"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

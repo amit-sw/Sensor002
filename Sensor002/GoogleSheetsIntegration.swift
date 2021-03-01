@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 //import Firebase
 //import FirebaseFirestore
 //import SwiftyJSON
@@ -18,6 +19,7 @@ class GoogleSheetsIntegration {
     static let uploadURL="https://v1.nocodeapi.com/gprof/google_sheets/vDeUBDsYEElokSec?tabId=Sheet1"
     static let datetimeFormat="yyyy-MM-dd HH:mm"
     static var lastSensorUpdate="XX"
+    static var uuid=UIDevice.current.identifierForVendor?.uuidString
         
     static func getCurrentDateTime() -> String {
         let dateFormatter = DateFormatter()
@@ -46,6 +48,8 @@ class GoogleSheetsIntegration {
         dataArray.append(recordType)
         dataArray.append(LocationViewController.currentLocation?.coordinate.latitude ?? 0)
         dataArray.append(LocationViewController.currentLocation?.coordinate.longitude ?? 0)
+        dataArray.append(uuid)
+        dataArray.append("XXX_YYY_ZZZ")
         dataArray = dataArray + passedData
         let da1 = [dataArray]
         //let da2 = JSON(da1)
@@ -98,6 +102,53 @@ class GoogleSheetsIntegration {
                 if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
                     print("Google Sheet add returned: ", json)
                     // handle json...
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        })
+        task.resume()
+    }
+    
+    static func processSheetData(_ jsonData:[String:Any]) {
+      print("TO-DO TO-DO TO-Do processSheetData")
+    }
+    
+    static func getSheet() {
+        let url = URL(string: uploadURL)
+        guard url != nil else {
+            print("Error creating URL: ",uploadURL)
+            return
+        }
+        //debugPrint("Google Sheet integration: Step 1")
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET" //set http method as POST
+
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        //create dataTask using the session object to send data to the server
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            //debugPrint("Google Sheet integration: Step 6")
+            guard error == nil else {
+                return
+            }
+            //debugPrint("Google Sheet integration: Step 7")
+            guard let data = data else {
+                return
+            }
+            //curl -X POST "https://v1.nocodeapi.com/gprof/google_sheets/vDeUBDsYEElokSec?tabId=Sheet1" -H  "accept: application/json" -H  "Content-Type: application/json" -d "[[\"abc\",\"def\"],[\"a123\",\"b123\"]]"
+            
+            //debugPrint("GoogleSheets call returned:",data)
+            do {
+                //create json object from data
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                    //print("Google Sheet add returned: ", json)
+                    // handle json...
+                    self.processSheetData(json)
                 }
             } catch let error {
                 print(error.localizedDescription)

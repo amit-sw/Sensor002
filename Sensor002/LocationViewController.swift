@@ -23,6 +23,8 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
         super.viewWillAppear(animated)
         
         determineMyCurrentLocation()
+        // This doesnt really belong here, just putting it here for testing
+        GoogleSheetsIntegration.getSheet()
     }
     
     

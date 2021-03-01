@@ -48,7 +48,10 @@ extension Aranet4ViewController: CBCentralManagerDelegate {
             print("central.state is .poweredOff")
         case .poweredOn:
             print("central.state is .poweredOn")
-            centralManager.scanForPeripherals(withServices: nil)
+            //centralManager.scanForPeripherals(withServices: nil)
+            //centralManager.scanForPeripherals(withServices: [CBUUID(string: "03E6832A-7697-E5A8-641E-E617AA95033D")])
+            centralManager.scanForPeripherals(withServices: [CBUUID(string: "F0CD1400-95DA-4F4B-9AC8-AA55D312AF0C")])
+            
         @unknown default:
             print("central.state is unknown: ",central.self)
         }
@@ -79,7 +82,7 @@ extension Aranet4ViewController: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
         for service in services {
-            // print("Service: ",service)
+            print("Service: ",service)
             if(service.uuid.uuidString.starts(with: "F0CD1400")) {
                 peripheral.discoverCharacteristics(nil, for: service)
             }
